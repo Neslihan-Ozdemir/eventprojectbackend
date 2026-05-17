@@ -17,7 +17,7 @@ Kullanıcıların etkinlik oluşturabildiği, diğer kullanıcıların etkinlikl
 
 ## Proje Yapısı
 
-```
+<pre>
 src/main/java/com/example/eventproject/
 ├── config/
 │   ├── AppBeans.java
@@ -26,15 +26,37 @@ src/main/java/com/example/eventproject/
 │   ├── SessionFilter.java
 │   └── SwaggerConfig.java
 ├── controller/
-│   ├── UsersController.java
 │   ├── EventController.java
-│   └── ParticipantController.java
+│   ├── ParticipantController.java
+│   └── UsersController.java
 ├── dto/
+│   ├── EventCreateDto.java
+│   ├── EventDetailResponseDto.java
+│   ├── EventResponseDto.java
+│   ├── EventSearchDto.java
+│   ├── EventUpdateDto.java
+│   ├── JoinEventDto.java
+│   ├── ParticipantResponseDto.java
+│   ├── UsersLoginDto.java
+│   ├── UsersRegisterDto.java
+│   └── UsersResponseDto.java
 ├── entity/
+│   ├── Event.java
+│   ├── Participant.java
+│   └── Users.java
 ├── repository/
+│   ├── EventRepository.java
+│   ├── ParticipantRepository.java
+│   └── UsersRepository.java
 ├── service/
-└── util/
-```
+│   ├── EventArchiveService.java
+│   ├── EventService.java
+│   ├── ParticipantService.java
+│   └── UsersService.java
+├── util/
+│   └── EventStatus.java
+└── EventprojectApplication.java
+</pre>
 
 ## API Endpoints
 
