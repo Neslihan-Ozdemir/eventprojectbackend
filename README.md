@@ -17,6 +17,7 @@ Kullanıcıların etkinlik oluşturabildiği, diğer kullanıcıların etkinlikl
 
 ## Proje Yapısı
 
+```
 src/main/java/com/example/eventproject/
 ├── config/
 │   ├── AppBeans.java
@@ -33,15 +34,16 @@ src/main/java/com/example/eventproject/
 ├── repository/
 ├── service/
 └── util/
+```
 
 ## API Endpoints
 
 ### Kullanıcı API
 | Method | URL | Açıklama |
 |--------|-----|----------|
-| POST | /user/register | Kayıt ol |
-| POST | /user/login | Giriş yap |
-| GET | /user/logout | Çıkış yap |
+| POST | /users/register | Kayıt ol |
+| POST | /users/login | Giriş yap |
+| GET | /users/logout | Çıkış yap |
 
 ### Etkinlik API
 | Method | URL | Açıklama |
@@ -62,7 +64,7 @@ src/main/java/com/example/eventproject/
 |--------|-----|----------|
 | POST | /participant/join | Etkinliğe katıl |
 | GET | /participant/list/{eventId} | Katılımcıları listele |
-| GET | /participant/my | Katıldığım etkinlikler |
+| GET | /participant/my-event | Katıldığım etkinlikler |
 
 ## Kurulum Adımları
 
