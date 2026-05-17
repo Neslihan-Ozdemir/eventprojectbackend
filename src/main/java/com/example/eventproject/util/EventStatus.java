@@ -1,4 +1,7 @@
 package com.example.eventproject.util;
 
-public class EventStatus {
+public enum EventStatus {
+    PUBLISHED,
+    PAUSED,
+    ARCHIVED
 }
