@@ -86,7 +86,7 @@ src/main/java/com/example/eventproject/
 |--------|-----|----------|
 | POST | /participant/join | Etkinliğe katıl |
 | GET | /participant/list/{eventId} | Katılımcıları listele |
-| GET | /participant/my-event | Katıldığım etkinlikler |
+| GET | /participant/my-events | Katıldığım etkinlikler |
 
 ## Kurulum Adımları
 
