@@ -23,7 +23,7 @@ public class UsersService {
     final ModelMapper modelMapper;
     final HttpServletRequest request;
 
-    public ResponseEntity register(UsersRegisterDto usersRegisterDto) {
+    public ResponseEntity<?> register(UsersRegisterDto usersRegisterDto) {
         Optional<Users> usersOptional = usersRepository.findByEmailEqualsIgnoreCase(usersRegisterDto.getEmail());
         if (usersOptional.isPresent()) {
             Map<String, Object> hm = Map.of("success", false, "message", "This email is already in use.");
@@ -39,7 +39,7 @@ public class UsersService {
     }
 
     // login
-    public ResponseEntity login(UsersLoginDto usersLoginDto) {
+    public ResponseEntity<?> login(UsersLoginDto usersLoginDto) {
         Optional<Users> usersOptional = usersRepository.findByEmailEqualsIgnoreCase(usersLoginDto.getEmail());
         if (usersOptional.isPresent()) {
             Users user = usersOptional.get();
@@ -54,7 +54,7 @@ public class UsersService {
         return ResponseEntity.badRequest().body(hm);
     }
 
-    public ResponseEntity logout() {
+    public ResponseEntity<?> logout() {
         request.getSession().invalidate();
         return ResponseEntity.ok().body("Logout successfully.");
     }

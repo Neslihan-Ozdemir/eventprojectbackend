@@ -33,7 +33,7 @@ public class ParticipantService {
         return usersRepository.findById(dto.getId());
     }
 
-    public ResponseEntity join(Long eventId) {
+    public ResponseEntity<?> join(Long eventId) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
@@ -61,7 +61,7 @@ public class ParticipantService {
         return ResponseEntity.ok().body(hm);
     }
 
-    public ResponseEntity listParticipants(Long eventId) {
+    public ResponseEntity<?> listParticipants(Long eventId) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
@@ -85,7 +85,7 @@ public class ParticipantService {
         return ResponseEntity.ok().body(responseDtos);
     }
 
-    public ResponseEntity listMyParticipations() {
+    public ResponseEntity<?> listMyParticipations() {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");

@@ -38,7 +38,7 @@ public class EventService {
         return usersRepository.findById(dto.getId());
     }
 
-    private ResponseEntity validateEventDateTime(LocalDate date, LocalTime time) {
+    private ResponseEntity<Map<String, Object>> validateEventDateTime(LocalDate date, LocalTime time) {
         if (date == null || time == null) {
             Map<String, Object> hm = Map.of("success", false, "message", "Date and time are required.");
             return ResponseEntity.badRequest().body(hm);
@@ -46,7 +46,7 @@ public class EventService {
         return null;
     }
 
-    private ResponseEntity updateStatus(Long id, EventStatus status, String message) {
+    private ResponseEntity<Map<String, Object>> updateStatus(Long id, EventStatus status, String message) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
@@ -64,13 +64,13 @@ public class EventService {
         return ResponseEntity.status(404).body(hm);
     }
 
-    public ResponseEntity create(EventCreateDto eventCreateRequestDto) {
+    public ResponseEntity<?> create(EventCreateDto eventCreateRequestDto) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
             return ResponseEntity.status(401).body(hm);
         }
-        ResponseEntity validation = validateEventDateTime(eventCreateRequestDto.getDate(), eventCreateRequestDto.getTime());
+        ResponseEntity<Map<String, Object>> validation = validateEventDateTime(eventCreateRequestDto.getDate(), eventCreateRequestDto.getTime());
         if (validation != null) return validation;
 
         Event event = modelMapper.map(eventCreateRequestDto, Event.class);
@@ -83,13 +83,13 @@ public class EventService {
         return ResponseEntity.ok().body(responseDto);
     }
 
-    public ResponseEntity update(EventUpdateDto eventUpdateDto) {
+    public ResponseEntity<Map<String, Object>> update(EventUpdateDto eventUpdateDto) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
             return ResponseEntity.status(401).body(hm);
         }
-        ResponseEntity validation = validateEventDateTime(eventUpdateDto.getDate(), eventUpdateDto.getTime());
+        ResponseEntity<Map<String, Object>> validation = validateEventDateTime(eventUpdateDto.getDate(), eventUpdateDto.getTime());
         if (validation != null) return validation;
 
         Optional<Event> optionalEvent = eventRepository.findByIdAndOwner_Id(eventUpdateDto.getId(), optionalUser.get().getId());
@@ -109,7 +109,7 @@ public class EventService {
         return ResponseEntity.status(404).body(hm);
     }
 
-    public ResponseEntity deleteOne(Long id) {
+    public ResponseEntity<Map<String, Object>> deleteOne(Long id) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
@@ -117,6 +117,7 @@ public class EventService {
         }
         Optional<Event> optionalEvent = eventRepository.findByIdAndOwner_Id(id, optionalUser.get().getId());
         if (optionalEvent.isPresent()) {
+            participantRepository.deleteAll(participantRepository.findByEvent_Id(id));
             eventRepository.deleteById(id);
             Map<String, Object> hm = Map.of("success", true, "message", "Event deleted successfully.");
             return ResponseEntity.ok().body(hm);
@@ -125,19 +126,19 @@ public class EventService {
         return ResponseEntity.status(404).body(hm);
     }
 
-    public ResponseEntity publish(Long id) {
+    public ResponseEntity<Map<String, Object>> publish(Long id) {
         return updateStatus(id, EventStatus.PUBLISHED, "Event published successfully.");
     }
 
-    public ResponseEntity pause(Long id) {
+    public ResponseEntity<Map<String, Object>> pause(Long id) {
         return updateStatus(id, EventStatus.PAUSED, "Event paused successfully.");
     }
 
-    public ResponseEntity archive(Long id) {
+    public ResponseEntity<Map<String, Object>> archive(Long id) {
         return updateStatus(id, EventStatus.ARCHIVED, "Event archived successfully.");
     }
 
-    public ResponseEntity getDetail(Long id) {
+    public ResponseEntity<?> getDetail(Long id) {
         Optional<Event> optionalEvent = eventRepository.findById(id);
         if (optionalEvent.isEmpty()) {
             Map<String, Object> hm = Map.of("success", false, "message", "Event not found.");
