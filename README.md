@@ -88,6 +88,11 @@ src/main/java/com/example/eventproject/
 | GET | /participant/list/{eventId} | Katılımcıları listele |
 | GET | /participant/my-events | Katıldığım etkinlikler |
 
+**Etkinlik Liste Sayfası***
+
+<img width="1920" height="788" alt="image" src="https://github.com/user-attachments/assets/4511d95b-997d-472c-a50d-6a18f6618106" />
+
+
 ## Kurulum Adımları
 
 ### Gereksinimler
