@@ -88,38 +88,6 @@ src/main/java/com/example/eventproject/
 | GET | /participant/list/{eventId} | Katılımcıları listele |
 | GET | /participant/my-events | Katıldığım etkinlikler |
 
-### Sayfalar
-
-***Giriş Yap Sayfası***
-
-<img width="546" height="464" alt="image" src="https://github.com/user-attachments/assets/e038d149-44dc-4399-95ec-efd7d34c693a" />
-
-***Kayıt Ol Sayfası***
-
-<img width="575" height="570" alt="image" src="https://github.com/user-attachments/assets/cefd7a09-3b86-49c8-b80d-9850b8d46f4a" />
-
-
-***Etkinlik Listeleme Sayfası***
-
-<img width="1920" height="788" alt="image" src="https://github.com/user-attachments/assets/4511d95b-997d-472c-a50d-6a18f6618106" />
-
-***Örnek Etkinlik Detayı***
-
-<img width="1920" height="812" alt="image" src="https://github.com/user-attachments/assets/db63dc7a-d35d-42e7-9dfa-9e803f7953f5" />
-
-***Etkinlik Oluşturma Sayfası***
-
-<img width="1920" height="810" alt="image" src="https://github.com/user-attachments/assets/89a68b4f-d66c-47fd-ba3c-29ac112a3e15" />
-
-***Etkinliklerim Sayfası***
-
-<img width="1920" height="808" alt="image" src="https://github.com/user-attachments/assets/e2ef2330-6729-4167-9613-dcf9022b49e2" />
-
-***Katılınan Etkinlikler Sayfası***
-
-<img width="1920" height="809" alt="image" src="https://github.com/user-attachments/assets/1a6ea56c-8932-443a-9632-6d95dde9be6b" />
-
-
 
 ## Kurulum Adımları
 
