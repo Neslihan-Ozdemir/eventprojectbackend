@@ -99,11 +99,11 @@ src/main/java/com/example/eventproject/
 <img width="575" height="570" alt="image" src="https://github.com/user-attachments/assets/cefd7a09-3b86-49c8-b80d-9850b8d46f4a" />
 
 
-**Etkinlik Listeleme Sayfası***
+***Etkinlik Listeleme Sayfası***
 
 <img width="1920" height="788" alt="image" src="https://github.com/user-attachments/assets/4511d95b-997d-472c-a50d-6a18f6618106" />
 
-***Örnek Etkinik Detayı***
+***Örnek Etkinlik Detayı***
 
 <img width="1920" height="812" alt="image" src="https://github.com/user-attachments/assets/db63dc7a-d35d-42e7-9dfa-9e803f7953f5" />
 
