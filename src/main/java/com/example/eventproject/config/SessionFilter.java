@@ -26,8 +26,13 @@ public class SessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String urlPath = request.getRequestURI();
-        String[] freeUrls = {"/user", "/actuator", "/swagger-ui", "/v3/api-docs", "/event/list", "/event/detail", "/event/search", "/event/control"};
+        String[] freeUrls = {"/users", "/actuator", "/swagger-ui", "/v3/api-docs", "/event/list", "/event/detail", "/event/search"};
 
         boolean isAuth = true;
         for (String freeUrl : freeUrls) {
