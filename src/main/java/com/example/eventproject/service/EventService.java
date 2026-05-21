@@ -31,6 +31,7 @@ public class EventService {
     final UsersRepository usersRepository;
     final HttpServletRequest request;
     final ModelMapper modelMapper;
+    private static final int PAGE_SIZE = 9;
 
     private Optional<Users> getSessionUser() {
         UsersResponseDto dto = (UsersResponseDto) request.getSession().getAttribute("user");
@@ -153,7 +154,7 @@ public class EventService {
     }
 
     public Page<EventResponseDto> listPublished(int page) {
-        return eventRepository.findByStatus(EventStatus.PUBLISHED, PageRequest.of(page, 9))
+        return eventRepository.findByStatus(EventStatus.PUBLISHED, PageRequest.of(page, PAGE_SIZE))
                 .map(event -> {
                     EventResponseDto dto = modelMapper.map(event, EventResponseDto.class);
                     dto.setOwnerId(event.getOwner().getId());
@@ -165,7 +166,7 @@ public class EventService {
     public Page<EventResponseDto> listByOwner(int page) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) return Page.empty();
-        return eventRepository.findByOwner_Id(optionalUser.get().getId(), PageRequest.of(page, 10))
+        return eventRepository.findByOwner_Id(optionalUser.get().getId(), PageRequest.of(page, PAGE_SIZE))
                 .map(event -> {
                     EventResponseDto dto = modelMapper.map(event, EventResponseDto.class);
                     dto.setOwnerId(event.getOwner().getId());
@@ -176,7 +177,7 @@ public class EventService {
 
     public Page<EventResponseDto> search(String q, int page) {
         return eventRepository.findByTitleContainsOrDescriptionContainsOrLocationContainsOrCategoryContainsAllIgnoreCase(
-                        q, q, q, q, PageRequest.of(page, 10))
+                        q, q, q, q, PageRequest.of(page,PAGE_SIZE))
                 .map(event -> {
                     EventResponseDto dto = modelMapper.map(event, EventResponseDto.class);
                     dto.setOwnerId(event.getOwner().getId());
