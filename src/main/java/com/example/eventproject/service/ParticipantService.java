@@ -36,19 +36,19 @@ public class ParticipantService {
     public ResponseEntity<?> join(Long eventId) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
 
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if (optionalEvent.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Event not found.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Etkinlik bulunamadı.");
             return ResponseEntity.status(404).body(hm);
         }
 
         boolean alreadyJoined = participantRepository.existsByEvent_IdAndUsers_Id(eventId, optionalUser.get().getId());
         if (alreadyJoined) {
-            Map<String, Object> hm = Map.of("success", false, "message", "You have already joined this event.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Bu etkinliğe zaten katıldınız.");
             return ResponseEntity.badRequest().body(hm);
         }
 
@@ -57,20 +57,20 @@ public class ParticipantService {
         participant.setUsers(optionalUser.get());
         participantRepository.save(participant);
 
-        Map<String, Object> hm = Map.of("success", true, "message", "Successfully joined the event.");
+        Map<String, Object> hm = Map.of("success", true, "message", "Etkinliğe başarıyla katıldınız.");
         return ResponseEntity.ok().body(hm);
     }
 
     public ResponseEntity<?> listParticipants(Long eventId) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
 
         Optional<Event> optionalEvent = eventRepository.findByIdAndOwner_Id(eventId, optionalUser.get().getId());
         if (optionalEvent.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Event not found or you are not the owner.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Etkinlik bulunamadı veya bu etkinliğin sahibi değilsiniz.");
             return ResponseEntity.status(404).body(hm);
         }
 
@@ -88,7 +88,7 @@ public class ParticipantService {
     public ResponseEntity<?> listMyParticipations() {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
         List<Participant> participants = participantRepository.findByUsers_Id(optionalUser.get().getId());

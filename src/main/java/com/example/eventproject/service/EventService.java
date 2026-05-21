@@ -127,21 +127,21 @@ public class EventService {
     }
 
     public ResponseEntity<Map<String, Object>> publish(Long id) {
-        return updateStatus(id, EventStatus.PUBLISHED, "Event published successfully.");
+        return updateStatus(id, EventStatus.PUBLISHED, "Etkinlik yayınlandı.");
     }
 
     public ResponseEntity<Map<String, Object>> pause(Long id) {
-        return updateStatus(id, EventStatus.PAUSED, "Event paused successfully.");
+        return updateStatus(id, EventStatus.PAUSED, "Etkinlik yayını durduruldu.");
     }
 
     public ResponseEntity<Map<String, Object>> archive(Long id) {
-        return updateStatus(id, EventStatus.ARCHIVED, "Event archived successfully.");
+        return updateStatus(id, EventStatus.ARCHIVED, "Etkinlik arşivlendi.");
     }
 
     public ResponseEntity<?> getDetail(Long id) {
         Optional<Event> optionalEvent = eventRepository.findById(id);
         if (optionalEvent.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Event not found.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Etkinlik bulunamadı.");
             return ResponseEntity.status(404).body(hm);
         }
         Event event = optionalEvent.get();
