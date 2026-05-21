@@ -153,7 +153,7 @@ public class EventService {
     }
 
     public Page<EventResponseDto> listPublished(int page) {
-        return eventRepository.findByStatus(EventStatus.PUBLISHED, PageRequest.of(page, 10))
+        return eventRepository.findByStatus(EventStatus.PUBLISHED, PageRequest.of(page, 9))
                 .map(event -> {
                     EventResponseDto dto = modelMapper.map(event, EventResponseDto.class);
                     dto.setOwnerId(event.getOwner().getId());
