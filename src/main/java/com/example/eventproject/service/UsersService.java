@@ -26,7 +26,7 @@ public class UsersService {
     public ResponseEntity<?> register(UsersRegisterDto usersRegisterDto) {
         Optional<Users> usersOptional = usersRepository.findByEmailEqualsIgnoreCase(usersRegisterDto.getEmail());
         if (usersOptional.isPresent()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "This email is already in use.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Bu e-posta adresi zaten kullanıyor.");
             return ResponseEntity.badRequest().body(hm);
         }
 
@@ -50,13 +50,13 @@ public class UsersService {
                 return ResponseEntity.ok().body(usersResponseDto);
             }
         }
-        Map<String, Object> hm = Map.of("success", false, "message", "Username or password is incorrect.");
+        Map<String, Object> hm = Map.of("success", false, "message", "Kullanıcı adı veya şifre hatalı.");
         return ResponseEntity.badRequest().body(hm);
     }
 
     public ResponseEntity<?> logout() {
         request.getSession().invalidate();
-        return ResponseEntity.ok().body("Logout successfully.");
+        return ResponseEntity.ok().body("Çıkış başarılı.");
     }
 }
 

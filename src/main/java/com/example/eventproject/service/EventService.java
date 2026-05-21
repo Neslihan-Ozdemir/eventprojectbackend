@@ -40,7 +40,7 @@ public class EventService {
 
     private ResponseEntity<Map<String, Object>> validateEventDateTime(LocalDate date, LocalTime time) {
         if (date == null || time == null) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Date and time are required.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Tarih ve saat zorunludur.");
             return ResponseEntity.badRequest().body(hm);
         }
         return null;
@@ -49,7 +49,7 @@ public class EventService {
     private ResponseEntity<Map<String, Object>> updateStatus(Long id, EventStatus status, String message) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
         Optional<Event> optionalEvent = eventRepository.findByIdAndOwner_Id(id, optionalUser.get().getId());
@@ -60,14 +60,14 @@ public class EventService {
             Map<String, Object> hm = Map.of("success", true, "message", message);
             return ResponseEntity.ok().body(hm);
         }
-        Map<String, Object> hm = Map.of("success", false, "message", "Event not found.");
+        Map<String, Object> hm = Map.of("success", false, "message", "Etkinlik bulunamadı.");
         return ResponseEntity.status(404).body(hm);
     }
 
     public ResponseEntity<?> create(EventCreateDto eventCreateRequestDto) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
         ResponseEntity<Map<String, Object>> validation = validateEventDateTime(eventCreateRequestDto.getDate(), eventCreateRequestDto.getTime());
@@ -86,7 +86,7 @@ public class EventService {
     public ResponseEntity<Map<String, Object>> update(EventUpdateDto eventUpdateDto) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
         ResponseEntity<Map<String, Object>> validation = validateEventDateTime(eventUpdateDto.getDate(), eventUpdateDto.getTime());
@@ -102,27 +102,27 @@ public class EventService {
             event.setDescription(eventUpdateDto.getDescription());
             event.setCategory(eventUpdateDto.getCategory());
             eventRepository.save(event);
-            Map<String, Object> hm = Map.of("success", true, "message", "Event updated successfully.");
+            Map<String, Object> hm = Map.of("success", true, "message", "Etkinlik başarıyla güncellendi.");
             return ResponseEntity.ok().body(hm);
         }
-        Map<String, Object> hm = Map.of("success", false, "message", "Event not found.");
+        Map<String, Object> hm = Map.of("success", false, "message", "Etkinlik bulunamadı.");
         return ResponseEntity.status(404).body(hm);
     }
 
     public ResponseEntity<Map<String, Object>> deleteOne(Long id) {
         Optional<Users> optionalUser = getSessionUser();
         if (optionalUser.isEmpty()) {
-            Map<String, Object> hm = Map.of("success", false, "message", "Unauthorized.");
+            Map<String, Object> hm = Map.of("success", false, "message", "Yetkisiz erişim.");
             return ResponseEntity.status(401).body(hm);
         }
         Optional<Event> optionalEvent = eventRepository.findByIdAndOwner_Id(id, optionalUser.get().getId());
         if (optionalEvent.isPresent()) {
             participantRepository.deleteAll(participantRepository.findByEvent_Id(id));
             eventRepository.deleteById(id);
-            Map<String, Object> hm = Map.of("success", true, "message", "Event deleted successfully.");
+            Map<String, Object> hm = Map.of("success", true, "message", "Etkinlik başarıyla silindi.");
             return ResponseEntity.ok().body(hm);
         }
-        Map<String, Object> hm = Map.of("success", false, "message", "Event not found.");
+        Map<String, Object> hm = Map.of("success", false, "message", "Etkinlik bulunamadı.");
         return ResponseEntity.status(404).body(hm);
     }
 
